@@ -139,6 +139,7 @@ namespace Artificial_Intelligence
 
             form2.Output(isTrue);
             form2.Show();
+            //add brange
             //textBox1.Text = Convert.ToString(classA.GetLength(0));
             //textBox1.Text = Convert.ToString(s);
         }
