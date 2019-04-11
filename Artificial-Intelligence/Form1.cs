@@ -14,12 +14,14 @@ namespace Artificial_Intelligence
         Random rand = new Random();
         double delta = 20;
         int verticalLength = 40;
-        double[] sourseData = {30.7, 39.9, 42.6, 42.5, 49.9, 43.5, 43.4, 43.9, 44.4, 48.6, 43.6, 42.9, 44.4, 42.8, 51.9, 43.5, 44.4, 43.5, 43.8, 52.8, 43.4, 42.7, 41.8, 42.5, 46.4, 42.5, 41.6, 42.8, 44.4, 44.5, 43.7, 42.9, 43.5, 54.9, 54.3, 56.7, 64.6, 70.4, 69.4, 31.9, 31.9, 35.6, 42.8, 41.9, 40.9, 41.4, 54.7, 55.1, 50.9, 20.2, 52.8, 22.1, 30.7, 70.4, 38.5, 31.9, 44.5, 13.8, 54.9, 23, 47.8, 47.8, 49.8, 47.6, 47.9, 45.9, 46.7, 46.5, 47.5, 47.7, 45.6, 50.4, 48.5, 45.9, 47.9, 47.6, 48.9, 47.8, 50.5, 50.7, 50.9, 49.9, 47.5, 45.7, 45.9, 46.4, 48.6, 48.5, 46.6, 45.7, 168.7, 92.9, 193.4, 0.871, 50, 16.05, 16.05, 15.94, 16.01, 6943, 7100, 7044, 7029, 334, 1584, 22, 19, 16, 24, 14, 7, 2.42, 2.11, 1.79, 2.67, 1.5, 0.76, 334, 1584, 0.21, 63.1, 31.9, 31.2};
+        double[] sourseData = {30.7, 39.9, 42.6, 42.5, 49.9, 43.5, 43.4, 43.9, 44.4, 48.6, 43.6, 42.9, 44.4, 42.8, 51.9, 43.5, 44.4, 43.5, 43.8, 52.8, 43.4, 42.7, 41.8, 42.5, 46.4, 42.5, 41.6, 42.8, 44.4, 44.5, 43.7, 42.9, 43.5, 54.9, 54.3, 56.7, 64.6, 70.4, 69.4, 31.9, 31.9, 35.6, 42.8, 41.9, 40.9, 41.4, 54.7, 55.1, 50.9, 20.2, 52.8, 22.1, 30.7, 70.4, 38.5, 31.9, 44.5, 13.8, 54.9, 23, 47.8, 47.8, 49.8, 47.6, 47.9, 45.9, 46.7, 46.5, 47.5, 47.7, 45.6, 50.4, 48.5, 45.9, 47.9, 47.6, 48.9, 47.8, 50.5, 50.7, 50.9, 49.9, 47.5, 45.7, 45.9, 46.4, 48.6, 48.5, 46.6, 45.7, 168.7, 92.9, 193.4, 0.871, 50, 16.05, 16.05, 15.94, 16.01, 6943, 7100, 7044, 7029, 334, 1584, 22, 19, 16, 24, 14, 7, 2.42, 2.11, 1.79, 2.67, 1.5, 0.76, 334, 1584, 0.21, 63.1, 31.9, 31.2, 158.9, 161.9, 101.7, 97.3, 0.84, 330.8, 338.3, 330, 1579.3, 1600, 1600, 0.20946, 65.95, 33.15, 522.43};
         double[] meanValues; 
         double[] limitUp;
         double[] limitDown;
         double[] isTrue;
         public double[,] classA;
+        public double[,] classB;
+        public double[,] classC;
         double[,] bin;
 
         public Form1() {
@@ -63,7 +65,7 @@ namespace Artificial_Intelligence
             return retArray;
         }
 
-        public double[,] createMatrix() {
+        public double[,] createClassA() {
             double[,] matrix = new double[sourseData.Length, verticalLength];
             for (int j = 0; j < verticalLength; j += 1) {
                 for (int i = 0; i < sourseData.Length; i++) {
@@ -87,6 +89,110 @@ namespace Artificial_Intelligence
                 }
             }
 
+            return matrix;
+        }
+
+        public double[,] createClassB() {
+            double[,] matrix = new double[sourseData.Length, verticalLength];
+            for (int i = 0; i < sourseData.Length; i++) {
+                for (int j = 0; j < verticalLength; j += 1) {
+                    if(i <= 32) { //Температура дистиллята до 32
+                        int tDRand = getRandom(5, 10); //Рандом от 5 до 9 Температура дистиллята
+                        matrix[i, j] = classA[i, j] + Convert.ToDouble(tDRand);
+                    }
+                    else if(i == 48) {
+                        int Rand = getRandom(8, 11); //Рандом от 8 до 10
+                        matrix[i, j] = classA[i, j] + Convert.ToDouble(Rand);
+                    }
+
+                     else if(i == 49) {
+                        int Rand = getRandom(5, 7); //Рандом от 5 до 6
+                        matrix[i, j] = classA[i, j] + Convert.ToDouble(Rand);
+                    }
+
+                    else if(i == 50) {
+                        int Rand = getRandom(8, 11); //Рандом от 8 до 10
+                        matrix[i, j] = classA[i, j] + Convert.ToDouble(Rand);
+                    }
+
+                     else if(i == 51) {
+                        int Rand = getRandom(5, 7); //Рандом от 5 до 6
+                        matrix[i, j] = classA[i, j] + Convert.ToDouble(Rand);
+                    }
+
+                    else if(i == 52) {
+                        int Rand = getRandom(6, 9); //Рандом от 6 до 8
+                        matrix[i, j] = classA[i, j] + Convert.ToDouble(Rand);
+                    }
+
+                    else if(i == 53) {
+                        int Rand = getRandom(8, 12); //Рандом от 8 до 11
+                        matrix[i, j] = classA[i, j] + Convert.ToDouble(Rand);
+                    }
+
+                    else if(i == 54) {
+                        int Rand = getRandom(5, 8); //Рандом от 5 до 7
+                        matrix[i, j] = classA[i, j] + Convert.ToDouble(Rand);
+                    }
+
+                     else if(i == 55) {
+                        int Rand = getRandom(5, 7); //Рандом от 5 до 6
+                        matrix[i, j] = classA[i, j] + Convert.ToDouble(Rand);
+                    }
+
+                    else if(i == 56) {
+                        int Rand = getRandom(6, 8); //Рандом от 6 до 7
+                        matrix[i, j] = classA[i, j] + Convert.ToDouble(Rand);
+                    }
+
+                    else if(i == 57) {
+                        int Rand = getRandom(4, 6); //Рандом от 4 до 5
+                        matrix[i, j] = classA[i, j] + Convert.ToDouble(Rand);
+                    }
+
+                    else if(i == 58) {
+                        int Rand = getRandom(8, 10); //Рандом от 8 до 9
+                        matrix[i, j] = classA[i, j] + Convert.ToDouble(Rand);
+                    }
+
+                    else if(i == 59) {
+                        int Rand = getRandom(5, 8); //Рандом от 5 до 7
+                        matrix[i, j] = classA[i, j] + Convert.ToDouble(Rand);
+                    }
+
+                    else if(i >= 60 && i < 90) {
+                        int oSRand = getRandom(10, 15); //Рандом от 10 до 14 Обмотка статора
+                        matrix[i, j] = classA[i, j] + Convert.ToDouble(oSRand);
+                    }
+                    else {
+                        matrix[i, j] = classA[i, j];
+                    }
+                   
+                }
+            }
+                
+            return matrix;
+        }
+
+        public double[,] createClassC() {
+            double[,] matrix = new double[sourseData.Length, verticalLength];
+            for (int i = 0; i < sourseData.Length; i++) {
+                for (int j = 0; j < verticalLength; j += 1) {
+                    if(i >= 128 && i<= 130) {
+                        matrix[i, j] = classA[i, j] + (classA[i, j] / 100d * 10d);
+                    }
+                    else if(i >= 131 && i<= 133) {
+                        matrix[i, j] = classA[i, j] + (classA[i, j] / 100d * 8d);
+                    }
+                    else if (i == 134) {
+                        matrix[i, j] = classA[i, j] - (classA[i, j] / 100d * 10d);
+                    }
+
+                    else {
+                        matrix[i, j] = classA[i, j];
+                    }
+                }
+            }
             return matrix;
         }
 
@@ -133,7 +239,10 @@ namespace Artificial_Intelligence
             Form2 form2 = new Form2();
 
             //Создания классу А с помощью исходных данных
-            classA = createMatrix();
+            classA = createClassA();
+            classB = createClassB();
+            classC = createClassC();
+
 
             //Поиск среднего значения
             meanValues = findMean(classA);
@@ -146,7 +255,7 @@ namespace Artificial_Intelligence
             isTrue = countTrue(bin);
 
             //Вывод любои инфы
-            form2.Output(classA);
+            form2.Output(classC);
             form2.Output2(meanValues);
             form2.Output3(limitUp);
             form2.Output4(limitDown);
