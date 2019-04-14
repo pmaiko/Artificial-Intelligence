@@ -21,7 +21,7 @@ namespace Artificial_Intelligence {
                 for (int j = 0; j <  Matrix.GetLength(1); j++) { //40
                     z = z + Matrix[i, j];
                 }
-                meanMas[i] = z / Matrix.GetLength(1);
+                meanMas[i] = z / 40d;
                 z = 0;
             }
             return meanMas;
@@ -79,6 +79,20 @@ namespace Artificial_Intelligence {
 
         public int getRandom(int from, int to) {
             return rand.Next(from, to);
+        }
+
+        public double[] FindEtalVecBin(double[] array) {
+            double[] newMeanBin = new double[array.Length];
+            for (int i = 0; i < array.Length; i++) {
+                if (array[i] > 0.5d) {
+                    newMeanBin[i] = 1;
+                }
+
+                else {
+                    newMeanBin[i] = 0;
+                }
+            }
+            return newMeanBin;
         }
     }
 }
