@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DrawGraph.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DrawGraph.Designer.cs">
+      <DependentUpon>DrawGraph.cs</DependentUpon>
+    </Compile>
     <Compile Include="resources\create_matrix\CreateClassA.cs" />
     <Compile Include="resources\create_matrix\CreateClassB.cs" />
     <Compile Include="resources\create_matrix\CreateClassC.cs" />
@@ -65,6 +72,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="DrawGraph.resx">
+      <DependentUpon>DrawGraph.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

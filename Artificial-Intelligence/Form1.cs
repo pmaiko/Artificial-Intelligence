@@ -13,6 +13,7 @@ namespace Artificial_Intelligence
 {
     public partial class Form1 : Form {
         Form2 form2 = new Form2();
+        DrawGraph drawGraph = new DrawGraph();
         public double ro = 0.5d;
         public double delta = 20;
         public int verticalLength = 40;
@@ -33,6 +34,14 @@ namespace Artificial_Intelligence
         double[] EtalVecBinB;
         double[] meanBinC;
         double[] EtalVecBinC;
+
+        double[] dck_xk; // к своим 
+        double[] dck_xn; // к чужим 
+        double[] k1;
+        double[] k2;
+
+        double[] E;
+      
 
 
         CreateClassA createClassA = new CreateClassA();
@@ -81,6 +90,140 @@ namespace Artificial_Intelligence
             meanBinC = functions.findMean(binC); //Поиск среднего значения bin C 0,54 - 0,6 - 0,3
             EtalVecBinC = functions.FindEtalVecBin(meanBinC); //Поиск еталоного вектора meanBinC 1, 0, 1
 
+            double[] distances = new double[3];
+            double[] minDistances = new double[3];
+            int index;
+            double[] indexMinValues = new double[3];
+            k1 = new double[sourseData.Length];
+            k2 = new double[sourseData.Length];
+            E = new double[sourseData.Length];
+
+            for (int k = 0; k < 3; k++) {
+
+                switch (k) {
+                    case 0:
+                            distances[0] = functions.findCountXOR(EtalVecBinA, EtalVecBinA); //0 9 0
+                            distances[1] = functions.findCountXOR(EtalVecBinA, EtalVecBinB);
+                            distances[2] = functions.findCountXOR(EtalVecBinA, EtalVecBinC);
+                            break;
+                        case 1:
+                            distances[0] = functions.findCountXOR(EtalVecBinB, EtalVecBinA); //9 0 9
+                            distances[1] = functions.findCountXOR(EtalVecBinB, EtalVecBinB);
+                            distances[2] = functions.findCountXOR(EtalVecBinB, EtalVecBinC);
+                            break;
+                        case 2:
+                            distances[0] = functions.findCountXOR(EtalVecBinC, EtalVecBinA); //0 9 0
+                            distances[1] = functions.findCountXOR(EtalVecBinC, EtalVecBinB);
+                            distances[2] = functions.findCountXOR(EtalVecBinC, EtalVecBinC);
+                            break;    
+                }
+
+                distances[k] = double.PositiveInfinity; // + бесконечность EtalVecBinA, EtalVecBinA : EtalVecBinB, EtalVecBinB : EtalVecBinC, EtalVecBinC 
+                minDistances[k] = functions.FindMinCount(distances); // поиск минимально значения 
+                index = Array.IndexOf(distances, minDistances[k]); //ижем индекс минимального числа в масиве distances
+                indexMinValues[k] = index; // записуем в масив минимальные значения
+
+                switch (k) {
+                    case 0:
+                        dck_xk = functions.findCountXORforEachLinesMatrix(EtalVecBinA, binA); // поиск несовпадений для каждой строки матрицы  74	37	41	32	41	38	45	39	40	32	34	37	37	35	30	48	37	45	40	37	45
+                        switch (index) {
+                            case 0:
+                                dck_xn = functions.findCountXORforEachLinesMatrix(EtalVecBinA, binA);
+                                break;
+                            case 1:
+                                dck_xn = functions.findCountXORforEachLinesMatrix(EtalVecBinA, binB);
+                                break;
+                            case 2:
+                                dck_xn = functions.findCountXORforEachLinesMatrix(EtalVecBinA, binC); // 71	37	41	33	41	38	44	39	38	32	34	36	37
+                                break;
+                        }
+
+                        break;
+                    case 1:
+                        dck_xk = functions.findCountXORforEachLinesMatrix(EtalVecBinB, binB);
+                        switch (index) {
+                            case 0:
+                                dck_xn = functions.findCountXORforEachLinesMatrix(EtalVecBinB, binA);
+                                break;
+                            case 1:
+                                dck_xn = functions.findCountXORforEachLinesMatrix(EtalVecBinB, binB);
+                                break;
+                            case 2:
+                                dck_xn = functions.findCountXORforEachLinesMatrix(EtalVecBinB, binC);
+                                break;
+                        }
+                        break;
+
+                    case 2:
+                        dck_xk = functions.findCountXORforEachLinesMatrix(EtalVecBinC, binC);
+                        switch (index) {
+                            case 0:
+                                dck_xn = functions.findCountXORforEachLinesMatrix(EtalVecBinC, binA);
+                                break;
+                            case 1:
+                                dck_xn = functions.findCountXORforEachLinesMatrix(EtalVecBinC, binB);
+                                break;
+                            case 2:
+                                dck_xn = functions.findCountXORforEachLinesMatrix(EtalVecBinC, binC);
+                                break;
+                        }
+                        break;
+                }
+
+                for (int i = 0; i < 40; i++) {
+                    double z = 0;
+                    for (int j = 0; j < dck_xk.Length; j++) {
+                        if (dck_xk[j] <= i) {
+                            z++;
+                        }
+                    }
+
+                    k1[i] = z / 40;
+                }
+
+                for (int i = 0; i < 40; i++) {
+                    double z = 0;
+                    for (int j = 0; j < dck_xn.Length; j++) {
+                        if (dck_xn[j] <= i) {
+                            z++;
+                        }
+                    }
+
+                    k2[i] = z / 40;
+                }
+
+                for (int i = 0; i < 40; i++) {
+                    double[] pt = new double[40];
+                    double[] pf = new double[40];
+                    double[] sump = new double[40];
+                    pt[i] = ((k1[i] + 1 - k2[i]) / 2);
+                    pf[i] = ((1 - k1[i] + k2[i]) / 2);
+                    sump[i] = pt[i] - pf[i];
+                    E[i] = Math.Log((pt[i] + 0.005) / (pf[i] + 0.005), 2.0) * (sump[i]);
+                }
+
+                //Вывод графиков
+                switch (k)
+                    {
+                        case 0:
+                            drawGraph.GetGraph(drawGraph.chart1, E, "Кульбак", 1, k1, k2);
+                            
+                            break;
+                        case 1:
+                            drawGraph.GetGraph(drawGraph.chart2, E, "Кульбак", 2, k1, k2);
+                            
+                            break;
+                        case 2:
+                            drawGraph.GetGraph(drawGraph.chart3, E, "Кульбак", 3, k1, k2);
+                            
+                            break;
+                    }
+
+            }
+
+            form2.Output(k1);
+            drawGraph.Show();
+
 
 
             //Вывод любои инфы
@@ -103,12 +246,14 @@ namespace Artificial_Intelligence
                 classC = usingFiles.readFile("classC"); //читаем даные с файла classC
 
                 mainMethod();
+
+                
             }
 
             else {
                 callCreateWriteClasses();
             }
-        }
+        }//pause
 
         private void button1_Click(object sender, EventArgs e) {
             callCreateWriteClasses();

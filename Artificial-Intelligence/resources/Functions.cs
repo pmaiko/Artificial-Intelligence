@@ -94,5 +94,41 @@ namespace Artificial_Intelligence {
             }
             return newMeanBin;
         }
+
+        public double findCountXOR(double[] mainEtal, double[] AnotherEtal) {
+            double count = 0;
+                for (int i = 0; i < mainEtal.Length; i++) {
+                    if (mainEtal[i] != AnotherEtal[i]) {
+                        count = count + 1;
+                    }
+                }
+     
+            return count;
+        }
+
+        public double FindMinCount (double[] arr) {
+            double min = arr[0];
+            for (int i = 1; i <arr.Length; i++) {
+                if (arr[i] < min) {
+                    min = arr[i];
+                }  
+            }
+            return min;
+        }
+
+        public double[] findCountXORforEachLinesMatrix(double[] mainEtal, double[,] bin) {
+            double[] array = new double[100];
+            int sum;
+            for (int j = 0; j < bin.GetLength(1); j++) { //40
+                sum = 0;
+                for (int i = 0; i < bin.GetLength(0); i++) { //124
+                    if (mainEtal[i] != bin[i, j]) {
+                        sum++;
+                    }
+                }
+                array[j] = sum;
+            }
+            return array;
+        }
     }
 }
