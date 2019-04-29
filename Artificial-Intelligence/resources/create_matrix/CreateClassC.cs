@@ -9,6 +9,7 @@ namespace Artificial_Intelligence {
 
         public double[,] create(double[,] classA) {
             Form1 form1 = new Form1();
+            Functions functions = new Functions(form1.delta);
 
             double[,] matrix = new double[form1.sourseData.Length, form1.verticalLength];
 
@@ -24,6 +25,10 @@ namespace Artificial_Intelligence {
                         matrix[i, j] = classA[i, j] - (classA[i, j] / 100d * 10d);
                     }
 
+                    else if (i >= 138 && i <= 168) {
+                        int random = functions.getRandom(20, 26);
+                        matrix[i, j] = form1.sourseData[i] + (form1.sourseData[i] / 100d * random); //увеличения числа на random
+                    }
                     else {
                         matrix[i, j] = classA[i, j];
                     }

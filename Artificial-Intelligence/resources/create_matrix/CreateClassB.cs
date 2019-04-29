@@ -83,6 +83,10 @@ namespace Artificial_Intelligence {
                         int oSRand = functions.getRandom(10, 15); //Рандом от 10 до 14 Обмотка статора
                         matrix[i, j] = classA[i, j] + Convert.ToDouble(oSRand);
                     }
+                    else if (i >= 138 && i <= 168) {
+                        int random = functions.getRandom(10, 16);
+                        matrix[i, j] = form1.sourseData[i] + (form1.sourseData[i] / 100d * random); //увеличения числа на random
+                    }
                     else {
                         matrix[i, j] = classA[i, j];
                     }

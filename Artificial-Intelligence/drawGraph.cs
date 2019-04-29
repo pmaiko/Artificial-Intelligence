@@ -31,7 +31,7 @@ namespace Artificial_Intelligence {
             chartArea.BackColor = Color.White;
             chartArea.AxisX.LabelStyle.Format = "F0";
             chartArea.AxisX.Minimum = 0.0;
-            chartArea.AxisX.Maximum = 40.0;
+            chartArea.AxisX.Maximum = ToGraph.Length;
             chartArea.AxisX.Interval = 10;
 
 
@@ -55,7 +55,7 @@ namespace Artificial_Intelligence {
             double temp = 0.0;
             double maxgr=0d;
             int maxEl=0;
-            for (int i = 0, j = 0; i < 40; i++)
+            for (int i = 0, j = 0; i < ToGraph.Length; i++)
             {
                 if (Double.IsNaN(ToGraph[i]))
                 {
@@ -106,7 +106,7 @@ namespace Artificial_Intelligence {
         }
 
         private void drawGraph_Load(object sender, EventArgs e) {
-
+            AutoScroll = true;
         }
     }
 }
