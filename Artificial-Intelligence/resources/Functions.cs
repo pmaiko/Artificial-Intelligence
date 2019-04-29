@@ -117,7 +117,7 @@ namespace Artificial_Intelligence {
         }
 
         public double[] findCountXORforEachLinesMatrix(double[] mainEtal, double[,] bin) {
-            double[] array = new double[100];
+            double[] array = new double[bin.GetLength(1)];
             int sum;
             for (int j = 0; j < bin.GetLength(1); j++) { //40
                 sum = 0;
