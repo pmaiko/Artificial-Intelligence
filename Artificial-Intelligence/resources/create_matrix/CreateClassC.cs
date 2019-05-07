@@ -9,7 +9,7 @@ namespace Artificial_Intelligence {
 
         public double[,] create(double[,] classA) {
             Form1 form1 = new Form1();
-            Functions functions = new Functions(form1.delta);
+            Functions functions = new Functions();
 
             double[,] matrix = new double[form1.sourseData.Length, form1.verticalLength];
 

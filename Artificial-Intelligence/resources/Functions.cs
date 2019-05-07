@@ -7,11 +7,6 @@ using System.Threading.Tasks;
 namespace Artificial_Intelligence {
     class Functions {
         Random rand = new Random();
-        double delta;
-
-        public Functions(double delta) {
-            this.delta = delta;
-        }
 
         public double[] findMean(double[,] Matrix) {
             double z = 0;
@@ -27,7 +22,7 @@ namespace Artificial_Intelligence {
             return meanMas;
         }
 
-        public double[] findLimit(double[] array, string which__one) { //поиск верхнего, нижнего допуска
+        public double[] findLimit(double[] array, string which__one, double delta) { //поиск верхнего, нижнего допуска
             double[] retArray = new double[array.Length];
             if (which__one == "Up") {
                 for (int i = 0; i < array.Length; i++) {
@@ -129,6 +124,36 @@ namespace Artificial_Intelligence {
                 array[j] = sum;
             }
             return array;
+        }
+
+        public double[] findK(double[] array, int length) {
+            double[] k = new double[length];
+            for (int i = 0; i < length; i++) {
+                double tmp = 0;
+                for (int j = 0; j < array.Length; j++) {
+                    if (array[j] <= i) {
+                        tmp++;
+                    }
+                }
+                k[i] = tmp / array.Length;
+            }
+            return k;
+        }
+
+        public double[] find_KFE(double[] k1, double[] k2, int length) {
+            double[] E = new double[length];
+            double[] pt = new double[length];
+            double[] pf = new double[length];
+            double[] sump = new double[length];
+
+            for (int i = 0; i < length; i++) {
+                pt[i] = ((k1[i] + 1 - k2[i]) / 2);
+                pf[i] = ((1 - k1[i] + k2[i]) / 2);
+                sump[i] = pt[i] - pf[i];
+                E[i] = Math.Log((pt[i] + 0.005) / (pf[i] + 0.005), 2.0) * (sump[i]);
+            }
+
+            return E;
         }
     }
 }
