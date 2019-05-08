@@ -31,7 +31,7 @@ namespace Artificial_Intelligence {
             chartArea.BackColor = Color.White;
             chartArea.AxisX.LabelStyle.Format = "F0";
             chartArea.AxisX.Minimum = 0.0;
-            chartArea.AxisX.Maximum = ToGraph.Length;
+            chartArea.AxisX.Maximum = 100;
             chartArea.AxisX.Interval = 10;
 
 

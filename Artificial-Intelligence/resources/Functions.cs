@@ -101,6 +101,16 @@ namespace Artificial_Intelligence {
             return count;
         }
 
+        public double FindMaxCount(double[] arr) {
+            double max = arr[0];
+            for (int i = 1; i < arr.Length; i++) {
+                if (arr[i] > max) {
+                    max = arr[i];
+                }
+            }
+            return max;
+        }
+
         public double FindMinCount (double[] arr) {
             double min = arr[0];
             for (int i = 1; i <arr.Length; i++) {
@@ -154,6 +164,32 @@ namespace Artificial_Intelligence {
             }
 
             return E;
+        }
+
+        public int findWorkArea(double[] k1, double [] k2) {
+            int radius = 0;
+            for (int i = 0; i < k2.Length; i++) {
+                if (k1[i] >= 0.5 && k2[i] < 0.5) {
+                    radius++;
+                }
+            }
+
+            return radius;
+        }
+
+        public double isFindWorkArea(double[] E, double E_max, double[] k, int radius) {
+            double k_mid = 0;
+            for (int i = 0; i < k.Length; i++) {
+                if (radius != 0) {
+                    if (E[i] ==  E_max) {
+                        k_mid = k[i];
+                    }
+                }
+                else {
+                    k_mid = k[i] + double.PositiveInfinity;
+                }
+            }
+            return k_mid;
         }
     }
 }

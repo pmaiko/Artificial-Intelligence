@@ -55,11 +55,16 @@ namespace Artificial_Intelligence
 
         public void mainMethod() {
             AlgMachine algMachine = new AlgMachine(classA,classB,classC);
-            algMachine.alg();
+            algMachine.alg(20d);
+            algMachine.algFind_K_KFE();
+
+            OptimizationKD optimizationKD = new OptimizationKD(classA, classB, classC);
+            optimizationKD.main();
 
             drawGraph.GetGraph(drawGraph.chart1, algMachine.E_A, "Кульбак", 1, algMachine.k1_A, algMachine.k2_A);
             drawGraph.GetGraph(drawGraph.chart2, algMachine.E_B, "Кульбак", 2, algMachine.k1_B, algMachine.k2_B);
             drawGraph.GetGraph(drawGraph.chart3, algMachine.E_C, "Кульбак", 3, algMachine.k1_C, algMachine.k2_C);
+            drawGraph.GetGraph(drawGraph.chart4, optimizationKD.E, "Оптимізація КД", 4, optimizationKD.k1, optimizationKD.k2);
             drawGraph.Show();
 
 

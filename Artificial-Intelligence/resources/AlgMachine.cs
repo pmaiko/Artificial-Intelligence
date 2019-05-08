@@ -9,7 +9,7 @@ namespace Artificial_Intelligence {
         public double[,] classA;
         public double[,] classB;
         public double[,] classC;
-        double[] meanValues; 
+        public double[] meanValues; 
         double[] limitUp;
         double[] limitDown;
         double[,] binA;
@@ -36,7 +36,11 @@ namespace Artificial_Intelligence {
         public double[] E_A;
         public double[] E_B;
         public double[] E_C;
+        public double k1_sum;
+        public double k2_sum;
+        public double E_sum;
 
+        Functions functions = new Functions();
 
 
         public AlgMachine(double[,] classA, double[,] classB, double[,]classC) {
@@ -45,15 +49,11 @@ namespace Artificial_Intelligence {
             this.classC = classC;
         }
 
-
-
-        public void alg() {
-            Functions functions = new Functions();
-
+        public void alg(double delta) {
             meanValues = functions.findMean(classA); //Поиск среднего значения
 
-            limitUp = functions.findLimit(meanValues, "Up", 20d); //верехний допуск по среднем значении classA
-            limitDown = functions.findLimit(meanValues, "Down", 20d); //нижний допуск по среднем значении classA
+            limitUp = functions.findLimit(meanValues, "Up", delta); //верехний допуск по среднем значении classA
+            limitDown = functions.findLimit(meanValues, "Down", delta); //нижний допуск по среднем значении classA
 
             binA = functions.BinMatrix(classA, limitDown, limitUp); 
             binB = functions.BinMatrix(classB, limitDown, limitUp); 
@@ -120,7 +120,9 @@ namespace Artificial_Intelligence {
                     dck_xnC = functions.findCountXORforEachLinesMatrix(EtalVecBinC, binB);
                     break;       
             }
+        }
 
+        public void algFind_K_KFE() {
             k1_A = functions.findK(dck_xkA, meanValues.Length);
             k2_A = functions.findK(dck_xnA, meanValues.Length);
             k1_B = functions.findK(dck_xkB, meanValues.Length);
@@ -132,6 +134,20 @@ namespace Artificial_Intelligence {
             E_B = functions.find_KFE(k1_B, k2_B, meanValues.Length);
             E_C = functions.find_KFE(k1_C, k2_C, meanValues.Length);
 
+
+            
+            //for (int i = 0; i < meanValues.Length; i++) {
+            //    if (radius[1] != 0) {
+            //        if (E_A[i] ==  KFE_max[1]) {
+            //            k1_A_mid = k1_A[i];
+            //            k2_A_mid = k2_A[i];
+            //        }
+            //    }
+            //    else {
+            //        k1_A_mid = k1_A[i] + double.PositiveInfinity;
+            //        k2_A_mid = k2_A[i] + double.PositiveInfinity;
+            //    }
+            //}
         }
     }
 }

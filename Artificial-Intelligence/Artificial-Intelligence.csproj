@@ -58,6 +58,7 @@
     <Compile Include="resources\create_matrix\CreateClassB.cs" />
     <Compile Include="resources\create_matrix\CreateClassC.cs" />
     <Compile Include="resources\Functions.cs" />
+    <Compile Include="resources\OptimizationKD.cs" />
     <Compile Include="resources\UsingFiles.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
