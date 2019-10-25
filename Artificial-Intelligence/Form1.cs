@@ -21,6 +21,7 @@ namespace Artificial_Intelligence
         public double[,] classA;
         public double[,] classB;
         public double[,] classC;
+        public static int countClasses = 2;
       
 
 
@@ -34,12 +35,12 @@ namespace Artificial_Intelligence
             InitializeComponent();
         }
 
-        public void consondeb(double[] value) {
-            NativeMethods.AllocConsole();
+        public void consondeb() {
+            NativeMethod.AllocConsole();
             //IntPtr stdHandle = NativeMethods.GetStdHandle(NativeMethods.STD_OUTPUT_HANDLE);
-            for (int i = 0; i<value.Length; i++) {
-                Console.Write(Convert.ToString(value[i]));
-            }           
+            //for (int i = 0; i<value.Length; i++) {
+            //    Console.Write(Convert.ToString(value[i]));
+            //}           
         }
 
         public void callCreateWriteClasses() {
@@ -54,12 +55,13 @@ namespace Artificial_Intelligence
         }
 
         public void mainMethod() {
+            //consondeb();
             AlgMachine algMachine = new AlgMachine(classA,classB,classC);
-            algMachine.alg(20d);
+            algMachine.alg(50d);
             algMachine.algFind_K_KFE();
 
             OptimizationKD optimizationKD = new OptimizationKD(classA, classB, classC);
-            optimizationKD.main();
+            optimizationKD.main("parallel");
 
             drawGraph.GetGraph(drawGraph.chart1, algMachine.E_A, "Кульбак", 1, algMachine.k1_A, algMachine.k2_A);
             drawGraph.GetGraph(drawGraph.chart2, algMachine.E_B, "Кульбак", 2, algMachine.k1_B, algMachine.k2_B);
@@ -70,9 +72,9 @@ namespace Artificial_Intelligence
 
 
             //Вывод любои инфы
-            //form2.Output(meanBinA);
-            //form2.Output2(meanValues);
-            //form2.Output3(limitUp);
+            form2.Output(algMachine.E_C);
+            form2.Output2(algMachine.k1_C);
+            form2.Output3(algMachine.k2_C);
             //form2.Output4(limitDown);
             //form2.Output5(binA);
             //form2.Output6(isTrue);
@@ -101,9 +103,16 @@ namespace Artificial_Intelligence
         private void button1_Click(object sender, EventArgs e) {
             callCreateWriteClasses();
         }
+
+        private void button2_Click(object sender, EventArgs e) {
+            OptimizationKD optimizationKD = new OptimizationKD(classA, classB, classC);
+            optimizationKD.main("consistent");
+            drawGraph.GetGraph(drawGraph.chart1, optimizationKD.E_max, "Послідовна", 4, optimizationKD.k1_max, optimizationKD.k2_max);
+            drawGraph.Show();
+        }
     }
 
-    public partial class NativeMethods
+    public partial class NativeMethod
     {
         public static Int32 STD_OUTPUT_HANDLE = -11;
 

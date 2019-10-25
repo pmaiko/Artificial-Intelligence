@@ -51,7 +51,25 @@ namespace Artificial_Intelligence {
 
         public void alg(double delta) {
             meanValues = functions.findMean(classA); //Поиск среднего значения
+            algMain(delta);
+        }
 
+        public void alg(double delta, int baseClass) {
+            switch (baseClass) {
+                case 0:
+                    meanValues = functions.findMean(classA);
+                    break;
+                case 1:
+                    meanValues = functions.findMean(classB); 
+                    break;
+                case 2:
+                    meanValues = functions.findMean(classC); 
+                    break;
+            }
+            algMain(delta);
+        }
+
+        private void algMain(double delta) {
             limitUp = functions.findLimit(meanValues, "Up", delta); //верехний допуск по среднем значении classA
             limitDown = functions.findLimit(meanValues, "Down", delta); //нижний допуск по среднем значении classA
 
@@ -121,6 +139,7 @@ namespace Artificial_Intelligence {
                     break;       
             }
         }
+
 
         public void algFind_K_KFE() {
             k1_A = functions.findK(dck_xkA, meanValues.Length);
