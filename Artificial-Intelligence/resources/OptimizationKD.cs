@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Artificial_Intelligence {
     class OptimizationKD : AlgMachine {
+        public static int op_class;
         private double prevE;
 
         public double PrevE {
@@ -63,6 +64,8 @@ namespace Artificial_Intelligence {
                         k1_max = k1;
                         k2_max = k2;
                         max = functions.FindMaxCount(E);
+
+                        op_class = cl;
                     }
                     
                 }

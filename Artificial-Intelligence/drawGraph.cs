@@ -11,6 +11,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Artificial_Intelligence {
     public partial class DrawGraph : Form {
+        public static double op_delta;
 
         public DrawGraph() {
             InitializeComponent();
@@ -103,6 +104,9 @@ namespace Artificial_Intelligence {
             chart.Series.Add(seriesRadius);
 
             radius = 0.0;
+            if (Form1.parallel == true || Form1.consistent == true) {
+                op_delta = maxEl;
+            }
         }
 
         private void drawGraph_Load(object sender, EventArgs e) {
