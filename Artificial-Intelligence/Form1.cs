@@ -17,10 +17,11 @@ namespace Artificial_Intelligence
         public int verticalLength = 40;
         public double[] sourseData = {30.7, 39.9, 42.6, 42.5, 49.9, 43.5, 43.4, 43.9, 44.4, 48.6, 43.6, 42.9, 44.4, 42.8, 51.9, 43.5, 44.4, 43.5, 43.8, 52.8, 43.4, 42.7, 41.8, 42.5, 46.4, 42.5, 41.6, 42.8, 44.4, 44.5, 43.7, 42.9, 43.5, 54.9, 54.3, 56.7, 64.6, 70.4, 69.4, 31.9, 31.9, 35.6, 42.8, 41.9, 40.9, 41.4, 54.7, 55.1, 50.9, 20.2, 52.8, 22.1, 30.7, 70.4, 38.5, 31.9, 44.5, 13.8, 54.9, 23, 47.8, 47.8, 49.8, 47.6, 47.9, 45.9, 46.7, 46.5, 47.5, 47.7, 45.6, 50.4, 48.5, 45.9, 47.9, 47.6, 48.9, 47.8, 50.5, 50.7, 50.9, 49.9, 47.5, 45.7, 45.9, 46.4, 48.6, 48.5, 46.6, 45.7, 168.7, 92.9, 193.4, 0.871, 50, 16.05, 16.05, 15.94, 16.01, 6943, 7100, 7044, 7029, 334, 1584, 22, 19, 16, 24, 14, 7, 2.42, 2.11, 1.79, 2.67, 1.5, 0.76, 334, 1584, 0.21, 63.1, 31.9, 31.2, 158.9, 161.9, 101.7, 97.3, 0.84, 330.8, 338.3, 330, 1579.3, 1600, 1600, 0.20946, 65.95, 33.15, 522.43, 188.7, 80, 62, 83, 96, 63, 68, 76.3, 96.5, 55, 64, 74.3, 68, 74, 76, 68, 188.7, 72.5, 75, 72, 66, 67.3, 35, 33, 46, 40, 10, 26, 30, 34, 66.7};
         double[] isTrue;
+        public static double Length;
         public double[,] classA;
         public double[,] classB;
         public double[,] classC;
-        public static int countClasses = 2;
+        public static int countClasses = 3;
 
         public static bool parallel = false;
         public static bool consistent = false;
@@ -35,6 +36,7 @@ namespace Artificial_Intelligence
 
         public Form1() {
             InitializeComponent();
+            Length = sourseData.Length;
         }
 
         public void consondeb() {
@@ -98,6 +100,7 @@ namespace Artificial_Intelligence
 
         private void button2_Click(object sender, EventArgs e) {
             consistent = true;
+            parallel = false;
 
             DrawGraph drawGraph = new DrawGraph();
             drawGraph.Text = "Послідовна оптимізація КД";
@@ -109,7 +112,7 @@ namespace Artificial_Intelligence
             drawGraph.chart3.Series.Clear();
             drawGraph.chart4.Series.Clear();
 
-            drawGraph.GetGraph(drawGraph.chart1, optimizationKD.E_max, "Послідовна оптимізація КД", 4, optimizationKD.k1_max, optimizationKD.k2_max);
+            drawGraph.GetGraph(drawGraph.chart1, optimizationKD.E_consistent_all, "Послідовна оптимізація КД", 4);
             drawGraph.Show();
 
             
@@ -117,6 +120,7 @@ namespace Artificial_Intelligence
 
         private void button3_Click(object sender, EventArgs e) {
             parallel = true;
+            consistent = false;
 
             DrawGraph drawGraph = new DrawGraph();
             drawGraph.Text = "Паралельна оптимізація КД";
@@ -167,7 +171,7 @@ namespace Artificial_Intelligence
                 drawGraph.Text = "Графіки після послідовної оптимізації";
 
                 AlgMachine algMachine = new AlgMachine(classA,classB,classC);
-                algMachine.alg(DrawGraph.op_delta, OptimizationKD.op_class);
+                algMachine.alg("consistent");
                 algMachine.algFind_K_KFE();
 
                 drawGraph.GetGraph(drawGraph.chart1, algMachine.E_A, "Кульбак", 1, algMachine.k1_A, algMachine.k2_A);
@@ -179,6 +183,22 @@ namespace Artificial_Intelligence
 
             }
 
+        }
+
+        private void button5_Click(object sender, EventArgs e) {
+            DrawGraph drawGraph = new DrawGraph();
+            drawGraph.Text = "Послідовна оптимізація КД - 2";
+
+            OptimizationKD optimizationKD = new OptimizationKD(classA, classB, classC);
+            optimizationKD.main("consistent-2");
+
+            drawGraph.chart2.Series.Clear();
+            drawGraph.chart3.Series.Clear();
+            drawGraph.chart4.Series.Clear();
+
+            //drawGraph.GetGraph(drawGraph.chart1, optimizationKD.E_optMax, optimizationKD.E_optMaxIndex,  "Послідовна оптимізація КД", 4);
+            //drawGraph.GetGraph(drawGraph.chart1, optimizationKD.E_optMaxA, optimizationKD.E_optMaxB, optimizationKD.E_optMaxC, optimizationKD.E_optMaxIndex,  "Послідовна оптимізація КД", 4);
+            drawGraph.Show();
         }
     }
 

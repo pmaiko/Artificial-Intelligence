@@ -109,6 +109,137 @@ namespace Artificial_Intelligence {
             }
         }
 
+        // public void GetGraph(Chart chart, double[] ToGraph, double [] zzz, string name, int number)
+        //{
+        //    Form1 form1 = new Form1();
+        //    string max="";
+        //    string r = "";
+        //    double radius = 0.0;
+
+        //    chart.Series.Clear();
+        //    chart.BorderlineColor = Color.Black;
+        //    chart.BorderlineDashStyle = ChartDashStyle.Solid;
+        //    chart.BorderlineWidth = 1;
+
+        //    ChartArea chartArea = chart.ChartAreas[0];
+        //    chartArea.BackColor = Color.White;
+        //    chartArea.AxisX.LabelStyle.Format = "F0";
+        //    chartArea.AxisX.Minimum = 0.0;
+        //    chartArea.AxisX.Maximum = form1.sourseData.Length * 3;
+        //    chartArea.AxisX.Interval = 50;
+
+
+
+        //    Series seriesNumber = new Series($"Зображення номер {number}");
+
+        //    Series seriesFirstImage1 = new Series($"Графік: {name}");
+        //    seriesFirstImage1.ChartType = SeriesChartType.Line;
+        //    seriesFirstImage1.Color = Color.Black;
+        //    seriesFirstImage1.BorderWidth = 2;
+
+        //     Series seriesFirstImage2 = new Series("Робоча область");
+        //    seriesFirstImage2.ChartType = SeriesChartType.Area;
+        //    seriesFirstImage2.Color = Color.LightGray;
+
+        //    Series seriesFirstImage3 = new Series("Оптимальный радиус");
+        //    seriesFirstImage3.ChartType = SeriesChartType.Line;
+        //    seriesFirstImage3.Color = Color.Blue;
+        //    seriesFirstImage3.BorderWidth = 2;
+
+        //    double temp = 0.0;
+        //    double maxgr=0d;
+        //    int maxEl=0;
+        //    for (int i = 0;  i < ToGraph.Length; i++)
+        //    {
+                
+        //        seriesFirstImage1.Points.AddXY(zzz[i], ToGraph[i]);
+        //    }
+        //    seriesFirstImage3.Points.AddXY(maxEl, 0);
+        //    seriesFirstImage3.Points.AddXY(maxEl, maxgr);
+        //    seriesFirstImage3.Points.AddXY(maxEl, 0);
+        //    max = maxEl + ";" + max;
+        //    r = radius + ";" + r;
+        //    Series seriesRadius = new Series($"Радиус = {r}");
+        //    Series seriesmax = new Series($"Оптимальный радиус = {form1.sourseData.Length}");
+
+        //    chart.Series.Add(seriesNumber);
+        //    chart.Series.Add(seriesFirstImage1);
+        //    chart.Series.Add(seriesFirstImage2);
+        //    chart.Series.Add(seriesFirstImage3);
+        //    chart.Series.Add(seriesmax);
+        //    chart.Series.Add(seriesRadius);
+
+        //    radius = 0.0;
+        //    if (Form1.parallel == true || Form1.consistent == true) {
+        //        op_delta = maxEl;
+        //    }
+        //}
+
+             public void GetGraph(Chart chart, double[] ToGraph, string name, int number)
+        {
+            Form1 form1 = new Form1();
+            string max="";
+            string r = "";
+            double radius = 0.0;
+
+            chart.Series.Clear();
+            chart.BorderlineColor = Color.Black;
+            chart.BorderlineDashStyle = ChartDashStyle.Solid;
+            chart.BorderlineWidth = 1;
+
+            ChartArea chartArea = chart.ChartAreas[0];
+            chartArea.BackColor = Color.White;
+            chartArea.AxisX.LabelStyle.Format = "F0";
+            chartArea.AxisX.Minimum = 0.0;
+            chartArea.AxisX.Maximum = form1.sourseData.Length * 3;
+            chartArea.AxisX.Interval = 50;
+
+
+
+            Series seriesNumber = new Series($"Зображення номер {number}");
+
+            Series seriesFirstImage1 = new Series($"Графік: {name}");
+            seriesFirstImage1.ChartType = SeriesChartType.Line;
+            seriesFirstImage1.Color = Color.Black;
+            seriesFirstImage1.BorderWidth = 2;
+
+             Series seriesFirstImage2 = new Series("Робоча область");
+            seriesFirstImage2.ChartType = SeriesChartType.Area;
+            seriesFirstImage2.Color = Color.LightGray;
+
+            Series seriesFirstImage3 = new Series("Оптимальный радиус");
+            seriesFirstImage3.ChartType = SeriesChartType.Line;
+            seriesFirstImage3.Color = Color.Blue;
+            seriesFirstImage3.BorderWidth = 2;
+
+            double temp = 0.0;
+            double maxgr=0d;
+            int maxEl=0;
+            for (int i = 0;  i < ToGraph.Length; i++)
+            {
+                seriesFirstImage1.Points.AddXY(i, ToGraph[i]);  
+            }
+            seriesFirstImage3.Points.AddXY(maxEl, 0);
+            seriesFirstImage3.Points.AddXY(maxEl, maxgr);
+            seriesFirstImage3.Points.AddXY(maxEl, 0);
+            max = maxEl + ";" + max;
+            r = radius + ";" + r;
+            Series seriesRadius = new Series($"Радиус = {r}");
+            Series seriesmax = new Series($"Оптимальный радиус = {form1.sourseData.Length}");
+
+            chart.Series.Add(seriesNumber);
+            chart.Series.Add(seriesFirstImage1);
+            chart.Series.Add(seriesFirstImage2);
+            chart.Series.Add(seriesFirstImage3);
+            chart.Series.Add(seriesmax);
+            chart.Series.Add(seriesRadius);
+
+            radius = 0.0;
+            if (Form1.parallel == true || Form1.consistent == true) {
+                op_delta = maxEl;
+            }
+        }
+
         private void drawGraph_Load(object sender, EventArgs e) {
             AutoScroll = true;
         }
