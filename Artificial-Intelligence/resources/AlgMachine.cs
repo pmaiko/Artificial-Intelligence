@@ -10,8 +10,8 @@ namespace Artificial_Intelligence {
         public double[,] classB;
         public double[,] classC;
         public double[] meanValues; 
-        static double[] limitUp;
-        static double[] limitDown;
+        public static double[] limitUp;
+        public static double[] limitDown;
 
         static double[] limitUpStart;
         static double[] limitDownStart;
@@ -61,8 +61,19 @@ namespace Artificial_Intelligence {
             limitUp = functions.findLimit(meanValues, "Up", delta); //верехний допуск по среднем значении classA
             limitDown = functions.findLimit(meanValues, "Down", delta); //нижний допуск по среднем значении classA
 
-            //limitUp[0] = limitUp[0] + 4;
-            //limitDown[0] = limitDown[0] - 4;
+            //limitUp[0] = limitUp[0] + 14;
+            //limitDown[0] = limitDown[0] - 14;
+            //limitUp[1] = limitUp[1] + 5;
+            //limitDown[1] = limitDown[1] - 5;
+            //limitUp[2] = limitUp[2] + 28;
+            //limitDown[2] = limitDown[2] - 28;
+            //limitUp[3] = limitUp[3] + 4;
+            //limitDown[3] = limitDown[3] - 4;
+            //limitUp[4] = limitUp[4] + 4;
+            //limitDown[4] = limitDown[4] - 4;
+            //limitUp[5] = limitUp[5] + 4;
+            //limitDown[5] = limitDown[5] - 4;
+
 
             algMain();
         }

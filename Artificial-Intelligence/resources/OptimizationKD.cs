@@ -44,6 +44,9 @@ namespace Artificial_Intelligence {
         public double[] E_optMaxB;
         public double[] E_optMaxC;
         public double[] E_optMaxIndex = new double[3];
+
+        double E_max = 0;
+        int E_max_index;
         Functions functions = new Functions();
         Form1 form1 = new Form1();
 
@@ -72,34 +75,47 @@ namespace Artificial_Intelligence {
                 int index = 0;
                 base.start();
                 for (int progon = 0; progon < 3; progon++) {
-                    
-                    for (int oznaka = 0; oznaka < form1.sourseData.Length; oznaka++) {
+                    for (int oznaka = 0; oznaka < 169; oznaka++) {
+                        index = E_max_index;
+                        
+                        opt = E_max;
+                        E_max = 0;
                         
                         for(int delta = 0; delta < 50; delta++) { 
                             base.alg(oznaka, delta, index, progon);
                             repeat(delta);
 
                             //if (k1[delta] >= 0.5 && k2[delta] < 0.5) {
-                                if (E[delta] > opt) {
-                                    opt = E[delta];
-                                    index = delta;
-                                }
+                                //if (E[delta] > opt) {
+                                //    opt = E[delta];
+                                //    index = delta;
+                                //}
                             //}
                         }
+
+                        
+
+                        if (E_max == opt) {
+                           // break;
+                        }
+                        
                         switch (progon) {
                             case 0:
-                                E_consistent_1[oznaka] = opt;
+                                E_consistent_1[oznaka] = E_max;
                                 break;
                             case 1:
-                                E_consistent_2[oznaka] = opt;
+                                E_consistent_2[oznaka] = E_max;
                                 break;
                             case 2:
-                                E_consistent_3[oznaka] = opt;
+                                E_consistent_3[oznaka] = E_max;
                                 break;
 
                         } 
                     }
-                }
+
+                    limitUp[form1.sourseData.Length -1] = limitUpSave[form1.sourseData.Length - 1] + E_max_index;
+                    limitDown[form1.sourseData.Length - 1] = limitDownSave[form1.sourseData.Length - 1] - E_max_index;
+                }//PA
 
                 base.SaveLimit();
 
@@ -257,6 +273,14 @@ namespace Artificial_Intelligence {
                 }
             }
             prevE = i != 0 ? E[i - 1] : 0;
+
+            if (k1[i] >= 0.5 && k2[i] < 0.5) {
+                if (E[i] > E_max) {
+                    E_max = E[i];
+                    E_max_index = i;
+                }
+            }
+           
         }
 
     }
