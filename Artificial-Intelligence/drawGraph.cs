@@ -95,6 +95,7 @@ namespace Artificial_Intelligence {
             r = radius + ";" + r;
             Series seriesRadius = new Series($"Радиус = {r}");
             Series seriesmax = new Series($"Оптимальный радиус = {max}");
+            Series seriesMaxE = new Series($"КФЕ max= {maxgr}");
 
             chart.Series.Add(seriesNumber);
             chart.Series.Add(seriesFirstImage1);
@@ -102,6 +103,7 @@ namespace Artificial_Intelligence {
             chart.Series.Add(seriesFirstImage3);
             chart.Series.Add(seriesmax);
             chart.Series.Add(seriesRadius);
+            chart.Series.Add(seriesMaxE);
 
             radius = 0.0;
             if (Form1.parallel == true || Form1.consistent == true) {
@@ -218,6 +220,10 @@ namespace Artificial_Intelligence {
             for (int i = 0;  i < ToGraph.Length; i++)
             {
                 seriesFirstImage1.Points.AddXY(i, ToGraph[i]);  
+                  if (ToGraph[i] > maxgr)
+                    {
+                        maxgr = ToGraph[i];
+                    }
             }
             seriesFirstImage3.Points.AddXY(maxEl, 0);
             seriesFirstImage3.Points.AddXY(maxEl, maxgr);
@@ -227,12 +233,15 @@ namespace Artificial_Intelligence {
             Series seriesRadius = new Series($"Радиус = {r}");
             Series seriesmax = new Series($"Оптимальный радиус = {form1.sourseData.Length}");
 
+            Series seriesMaxE = new Series($"КФЕ max= {maxgr}");
+
             chart.Series.Add(seriesNumber);
             chart.Series.Add(seriesFirstImage1);
             chart.Series.Add(seriesFirstImage2);
             chart.Series.Add(seriesFirstImage3);
             chart.Series.Add(seriesmax);
             chart.Series.Add(seriesRadius);
+            chart.Series.Add(seriesMaxE);
 
             radius = 0.0;
             if (Form1.parallel == true || Form1.consistent == true) {
