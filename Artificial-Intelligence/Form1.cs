@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Artificial_Intelligence
 {
@@ -75,10 +77,23 @@ namespace Artificial_Intelligence
             //form2.Show();
         }
 
+        async void lox() {
+            string zz = await Task.Run(() => {
+                 Thread.Sleep(3000);
+                return "adssadas";
+                
+            });
+
+            textBox1.Text = zz;
+
+            
+
+        }
+
         
 
         private void Form1_Load(object sender, EventArgs e) {
-
+            lox();
             if (File.Exists(usingFiles.url+"classA"+usingFiles.format) && File.Exists(usingFiles.url+"classB"+usingFiles.format) && File.Exists(usingFiles.url+"classC"+usingFiles.format)) {
                 classA = usingFiles.readFile("classA"); //читаем даные с файла classA
                 classB = usingFiles.readFile("classB"); //читаем даные с файла classB
@@ -92,6 +107,8 @@ namespace Artificial_Intelligence
             else {
                 callCreateWriteClasses();
             }
+
+
         }//pause
 
         private void button1_Click(object sender, EventArgs e) {
@@ -115,6 +132,9 @@ namespace Artificial_Intelligence
             drawGraph.GetGraph(drawGraph.chart1, optimizationKD.E_consistent_all, "Послідовна оптимізація КД", 4);
             drawGraph.Show();
 
+            form2.Output(optimizationKD.E_consistent_all);
+                form2.Show();
+
             
         }
 
@@ -133,6 +153,8 @@ namespace Artificial_Intelligence
             drawGraph.chart4.Series.Clear();
             drawGraph.GetGraph(drawGraph.chart1, optimizationKD.E, "Паралельна оптимізація КД", 4, optimizationKD.k1, optimizationKD.k2);
             drawGraph.Show();
+
+           
 
             
         }
@@ -177,6 +199,9 @@ namespace Artificial_Intelligence
                 drawGraph.GetGraph(drawGraph.chart1, algMachine.E_A, "Кульбак", 1, algMachine.k1_A, algMachine.k2_A);
                 drawGraph.GetGraph(drawGraph.chart2, algMachine.E_B, "Кульбак", 2, algMachine.k1_B, algMachine.k2_B);
                 drawGraph.GetGraph(drawGraph.chart3, algMachine.E_C, "Кульбак", 3, algMachine.k1_C, algMachine.k2_C);
+
+                
+
                 drawGraph.Show();
 
                 consistent = false;
@@ -199,6 +224,9 @@ namespace Artificial_Intelligence
             //drawGraph.GetGraph(drawGraph.chart1, optimizationKD.E_optMax, optimizationKD.E_optMaxIndex,  "Послідовна оптимізація КД", 4);
             //drawGraph.GetGraph(drawGraph.chart1, optimizationKD.E_optMaxA, optimizationKD.E_optMaxB, optimizationKD.E_optMaxC, optimizationKD.E_optMaxIndex,  "Послідовна оптимізація КД", 4);
             drawGraph.Show();
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e) {
         }
     }
 
