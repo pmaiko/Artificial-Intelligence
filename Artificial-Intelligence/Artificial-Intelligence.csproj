@@ -53,6 +53,7 @@
     <Compile Include="DrawGraph.Designer.cs">
       <DependentUpon>DrawGraph.cs</DependentUpon>
     </Compile>
+    <Compile Include="resources\AlgExam.cs" />
     <Compile Include="resources\AlgMachine.cs" />
     <Compile Include="resources\create_matrix\CreateClassA.cs" />
     <Compile Include="resources\create_matrix\CreateClassB.cs" />
@@ -74,6 +75,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="resources\Write.cs" />
     <EmbeddedResource Include="DrawGraph.resx">
       <DependentUpon>DrawGraph.cs</DependentUpon>
     </EmbeddedResource>

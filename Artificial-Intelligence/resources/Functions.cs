@@ -22,6 +22,18 @@ namespace Artificial_Intelligence {
             return meanMas;
         }
 
+        public double findMean (double[] array) {
+            double result = 0;
+            double sum = 0;
+
+            for (int i = 0; i < array.Length; i++) {
+                sum = sum + array[i];
+            }
+            result = sum / array.Length;
+
+            return result;
+        }
+
         public double[] findLimit(double[] array, string which__one, double delta) { //поиск верхнего, нижнего допуска
             double[] retArray = new double[array.Length];
             if (which__one == "Up") {

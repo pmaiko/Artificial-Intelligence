@@ -5,9 +5,14 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+
+using System.Threading;
+using System.Threading.Tasks;
+
+using System.Windows;
+using System.Threading;
 
 namespace Artificial_Intelligence
 {
@@ -61,10 +66,7 @@ namespace Artificial_Intelligence
         public void mainMethod() {
             
             //consondeb();
-           
-       
-
-
+          
             //Вывод любои инфы
            // form2.Output(algMachine.E_C);
             //form2.Output2(algMachine.k1_C);
@@ -78,6 +80,18 @@ namespace Artificial_Intelligence
         
 
         private void Form1_Load(object sender, EventArgs e) {
+            Text = "Інтелектуальна система";
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Write.txt1 = textBox1;
+            Write.txt2 = textBox2;
+            Write.txt3 = textBox3;
+            Write.txt4 = textBox4;
+            Write.pbr1 = progressBar1;
+            Write.lbl4 = label4;
+            Height = 335;
+            groupBox4.Visible = false;
+            button1.Visible = false;
+            button2.Enabled = false;
 
             if (File.Exists(usingFiles.url+"classA"+usingFiles.format) && File.Exists(usingFiles.url+"classB"+usingFiles.format) && File.Exists(usingFiles.url+"classC"+usingFiles.format)) {
                 classA = usingFiles.readFile("classA"); //читаем даные с файла classA
@@ -98,16 +112,21 @@ namespace Artificial_Intelligence
             callCreateWriteClasses();
         }
 
-        private void button2_Click(object sender, EventArgs e) {
+        async void consistentAsync() {
             consistent = true;
             parallel = false;
-
+            button2.Enabled = false;
             DrawGraph drawGraph = new DrawGraph();
             drawGraph.Text = "Послідовна оптимізація КД";
-
+            groupBox4.Visible = true;
+            groupBox4.Text = "Процес послідовної оптимізації КД";
+            Height = 440;
             OptimizationKD optimizationKD = new OptimizationKD(classA, classB, classC);
-            optimizationKD.main("consistent");
-
+            await Task.Run(()=> {
+                optimizationKD.main("consistent");
+            }); 
+            Height = 335;
+            groupBox4.Visible = false;
             drawGraph.chart2.Series.Clear();
             drawGraph.chart3.Series.Clear();
             drawGraph.chart4.Series.Clear();
@@ -115,12 +134,16 @@ namespace Artificial_Intelligence
             drawGraph.GetGraph(drawGraph.chart1, optimizationKD.E_consistent_all, "Послідовна оптимізація КД", 4);
             drawGraph.Show();
 
-            
+        }
+
+        private void button2_Click(object sender, EventArgs e) {
+            consistentAsync();
         }
 
         private void button3_Click(object sender, EventArgs e) {
             parallel = true;
             consistent = false;
+            button2.Enabled = true;
 
             DrawGraph drawGraph = new DrawGraph();
             drawGraph.Text = "Паралельна оптимізація КД";
@@ -138,6 +161,7 @@ namespace Artificial_Intelligence
         }
 
         private void button4_Click(object sender, EventArgs e) {
+            button2.Enabled = false;
             if (parallel == false && consistent == false) {
                 DrawGraph drawGraph = new DrawGraph();
                 drawGraph.Text = "Графіки залежності критерію Кульбака від радіусів контейнерів класів розпізнавання";
@@ -186,19 +210,8 @@ namespace Artificial_Intelligence
         }
 
         private void button5_Click(object sender, EventArgs e) {
-            DrawGraph drawGraph = new DrawGraph();
-            drawGraph.Text = "Послідовна оптимізація КД - 2";
-
-            OptimizationKD optimizationKD = new OptimizationKD(classA, classB, classC);
-            optimizationKD.main("consistent-2");
-
-            drawGraph.chart2.Series.Clear();
-            drawGraph.chart3.Series.Clear();
-            drawGraph.chart4.Series.Clear();
-
-            //drawGraph.GetGraph(drawGraph.chart1, optimizationKD.E_optMax, optimizationKD.E_optMaxIndex,  "Послідовна оптимізація КД", 4);
-            //drawGraph.GetGraph(drawGraph.chart1, optimizationKD.E_optMaxA, optimizationKD.E_optMaxB, optimizationKD.E_optMaxC, optimizationKD.E_optMaxIndex,  "Послідовна оптимізація КД", 4);
-            drawGraph.Show();
+            button2.Enabled = false;
+            AlgExam algExam = new AlgExam(classA, classB, classC, classC);
         }
     }
 

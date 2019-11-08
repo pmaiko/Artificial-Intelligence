@@ -23,11 +23,11 @@ namespace Artificial_Intelligence {
         double[,] binB;
         double[,] binC;
         double[] meanBinA;
-        double[] EtalVecBinA;
+        protected double[] EtalVecBinA;
         double[] meanBinB;
-        double[] EtalVecBinB;
+        protected double[] EtalVecBinB;
         double[] meanBinC;
-        double[] EtalVecBinC;
+        protected double[] EtalVecBinC;
         double[] dck_xkA; // к своим 
         double[] dck_xnA;// к чужим 
         double[] dck_xkB; // к своим 

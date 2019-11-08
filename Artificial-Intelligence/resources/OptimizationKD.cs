@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Artificial_Intelligence {
     class OptimizationKD : AlgMachine {
-        public static int op_class;
         private double prevE;
 
         public double PrevE {
@@ -36,20 +35,12 @@ namespace Artificial_Intelligence {
         public double[] E_consistent_2;
         public double[] E_consistent_3;
         public double[] E_consistent_all;
-        public double[] k1_max;
-        public double[] k2_max;
-
-        //public double[] E_optMax = new double[3];
-        public double[] E_optMaxA;
-        public double[] E_optMaxB;
-        public double[] E_optMaxC;
         public double[] E_optMaxIndex = new double[3];
 
         double E_max = 0;
         int E_max_index;
         Functions functions = new Functions();
         Form1 form1 = new Form1();
-
 
         public OptimizationKD(double[,] classA, double[,] classB, double[,] classC) : base(classA, classB, classC) {
         }
@@ -69,13 +60,22 @@ namespace Artificial_Intelligence {
                 E_consistent_2 = new double [form1.sourseData.Length];
                 E_consistent_3 = new double [form1.sourseData.Length];
                 E_consistent_all = new double [form1.sourseData.Length*3];
-    
 
+
+                double progI = 0; /// progress Bar
                 double opt = 0;
                 int index = 0;
                 base.start();
                 for (int progon = 0; progon < 3; progon++) {
-                    for (int oznaka = 0; oznaka < 169; oznaka++) {
+                    for (int oznaka = 0; oznaka < form1.sourseData.Length; oznaka++) {
+                        ///proggressBar
+                        double progress = (100 * progI) / (form1.sourseData.Length * 3);
+                        Write.pbr1.Invoke(new Action(() =>{
+                            Write.pbr1.Value = Convert.ToInt32(progress);
+                            Write.lbl4.Text = Convert.ToString(Math.Round(progress, 5) + "%");
+                        }));
+                        progI++;
+                        ///proggressBar End
                         index = E_max_index;
                         
                         opt = E_max;
@@ -84,19 +84,6 @@ namespace Artificial_Intelligence {
                         for(int delta = 0; delta < 50; delta++) { 
                             base.alg(oznaka, delta, index, progon);
                             repeat(delta);
-
-                            //if (k1[delta] >= 0.5 && k2[delta] < 0.5) {
-                                //if (E[delta] > opt) {
-                                //    opt = E[delta];
-                                //    index = delta;
-                                //}
-                            //}
-                        }
-
-                        
-
-                        if (E_max == opt) {
-                           // break;
                         }
                         
                         switch (progon) {
@@ -130,107 +117,7 @@ namespace Artificial_Intelligence {
                         E_consistent_all[i] = E_consistent_3[i - (form1.sourseData.Length * 2)];
                     }
                 }
-
-                
-
-
-                //double optDelta = 0;
-                //int optDeltaIndex = 0;
-
-                //for (int i = 0; i < 169; i++) {
-                //    base.alg(i, 16);
-                //    repeat(i);
-
-                //    if (k1[i] >= 0.5 && k2[i] < 0.5) {
-                //        if (E[i] > optDelta) {
-                //            optDelta = E[i];
-                //            optDeltaIndex = i;
-                //        }
-                //    }
-                //}
-
-                for (int cl = 0; cl < Form1.countClasses; cl++) {
-                    
-
-                    //if (functions.FindMaxCount(E) > max) {
-                    //    E_max = E;
-                    //    k1_max = k1;
-                    //    k2_max = k2;
-                    //    max = functions.FindMaxCount(E);
-
-                    //    op_class = cl;
-                    //}
-                    
-                }
-            } else if (TYPE == "consistent-2") {
-                E_optMaxA = new double [169];
-                 E_optMaxB = new double [169];
-                 E_optMaxC = new double [169];
-                Form1 form1 = new Form1();
-                int s = 0;
-                double optDelta = 0;
-                double optDeltaIndex = 0;
-
-                for (int cl = 0; cl < Form1.countClasses; cl++) {
-
-                    s += form1.sourseData.Length;
-                    for (int i = 0; i <= 100; i++) {
-                        //switch (cl) {
-                        //    case 0:
-                        //        base.alg(i);
-                        //        repeat(i);
-                        //        E_optMaxA[i] = E[i];
-                        //        break;
-
-                        //    case 1:
-                        //        base.alg(i);
-                        //        repeat(i);
-                        //        E_optMaxB[i] = E[i];
-                        //        break;
-
-                        //    case 2:
-                        //        base.alg(i);
-                        //        repeat(i);
-                        //        E_optMaxC[i] = E[i];
-                        //        break;
-
-                        //}
-                        //optDelta = 0;
-                        //optDeltaIndex = 0;
-                        
-
-                        // if (k1[i] >= 0.5 && k2[i] < 0.5) {
-                        //    if (E[i] > optDelta) {
-                        //        optDelta = E[i];
-                        //        optDeltaIndex = i;
-                        //    }
-                        //}
-                    }
-                    //switch (cl) {
-                    //        case 0:
-                    //            E_optMaxA = E;
-                    //            break;
-
-                    //        case 1:
-                    //            E_optMaxB = E;
-                    //            break;
-
-                    //        case 2:
-                    //            E_optMaxC = E;
-                    //            break;
-
-                    //    }
-
-                    
-                    E_optMaxIndex[cl] = cl != 0 ? functions.FindMaxInxex(E) + s: 0;
-
-                    //E_optMax[cl] = functions.FindMaxCount(E);
-                    //E_optMaxIndex[cl] = cl != 0 ? functions.FindMaxInxex(E) + s: 0;
-
-                    
-                }
-            }
-            
+            }   
         }
 
         private void repeat(int i) {
